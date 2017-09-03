@@ -16,6 +16,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         rsync \
         software-properties-common \
         unzip \
+        mecab \
+        libmecab-dev \
+        mecab-ipadic \
+        mecab-ipadic-utf8 \
+        python-mecab \
+        language-pack-ja-base \
+        language-pack-ja \
+        ibus-mozc \
         && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
@@ -34,8 +42,15 @@ RUN pip3 --no-cache-dir install \
         pandas \
         scipy \
         sklearn \
+        slackbot \
+        mecab-python3 \
+        bs4 \
         && \
     python3 -m ipykernel.kernelspec
+
+RUN update-locale LANG=ja_JP.UTF-8 LANGUAGE="ja_JP:ja"
+RUN . /etc/default/locale
+RUN export LANG=ja_JP.UTF-8
 
 # --- DO NOT EDIT OR DELETE BETWEEN THE LINES --- #
 # These lines will be edited automatically by parameterized_docker_build.sh. #
@@ -49,7 +64,7 @@ RUN pip3 --no-cache-dir install tensorflow
 #/http://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-${TENSORFLOW_VERSION}-cp36-cp36m-linux_x86_64.whl
 # --- ~ DO NOT EDIT OR DELETE BETWEEN THE LINES --- #
 
-RUN ln -s /usr/bin/python3 /usr/bin/python
+#RUN ln -s /usr/bin/python3 /usr/bin/python
 
 # Set up our notebook config.
 COPY jupyter_notebook_config.py /root/.jupyter/
