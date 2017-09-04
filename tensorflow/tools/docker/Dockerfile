@@ -24,6 +24,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         language-pack-ja-base \
         language-pack-ja \
         ibus-mozc \
+        vim \
         && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
@@ -32,7 +33,7 @@ RUN curl -O https://bootstrap.pypa.io/get-pip.py && \
     python3 get-pip.py && \
     rm get-pip.py
 
-RUN pip3 --no-cache-dir install \
+RUN pip3 install \
         Pillow \
         h5py \
         ipykernel \
